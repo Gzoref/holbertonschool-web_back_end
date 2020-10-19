@@ -6,7 +6,7 @@ Basic annotations - floor
 '''
 
 
-def floor(n: float) -> float:
+def floor(n: float) -> int:
     '''
     Finds the floor of a float
     '''
