@@ -10,6 +10,9 @@ from typing import Iterable, List, Sequence, Tuple, Union, Any
 
 
 def safe_first_element(lst: Sequence[Any]) -> Union[Any, None]:
+    '''
+    Return first element in list
+    '''
     if lst:
         return lst[0]
     else:
