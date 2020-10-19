@@ -7,12 +7,12 @@ Type checking
 from typing import Iterable, List, Sequence, Tuple, Union, Any, TypeVar
 
 
-def zoom_array(lst: Tuple, factor: int = 2) -> List:
+def zoom_array(lst: List[int], factor: int = 2) -> List:
     '''
-    Zoom array
+    Zoom array ???
     '''
-    zoomed_in: Tuple = [
-        item for item in lst
+    zoomed_in: List = [
+        item for item in list(lst)
         for i in range(factor)
     ]
     return zoomed_in
