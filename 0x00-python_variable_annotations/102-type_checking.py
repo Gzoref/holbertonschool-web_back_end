@@ -7,7 +7,7 @@ Type checking
 from typing import Iterable, List, Sequence, Tuple, Union, Any, TypeVar
 
 
-def zoom_array(lst: List[int], factor: int = 2) -> List:
+def zoom_array(lst: List, factor: int = 2) -> List:
     '''
     Zoom array ???
     '''
