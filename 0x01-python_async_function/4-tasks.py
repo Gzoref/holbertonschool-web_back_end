@@ -7,7 +7,7 @@ Let's execute multiple coroutines at the same time with async
 import asyncio
 import random
 from typing import List
-wait_random = __import__('0-basic_async_syntax').wait_random
+task_wait_random = __import__('3-tasks').task_wait_random
 
 
 async def task_wait_n(n: int, max_delay: int) -> List[float]:
@@ -17,7 +17,7 @@ async def task_wait_n(n: int, max_delay: int) -> List[float]:
 
     result = []
 
-    delays = [wait_random(max_delay) for time in range(n)]
+    delays = [task_wait_random(max_delay) for time in range(n)]
 
     for sort in asyncio.as_completed(delays):
         val = await sort
