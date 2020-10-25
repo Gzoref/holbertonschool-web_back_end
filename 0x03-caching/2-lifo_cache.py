@@ -31,7 +31,7 @@ class LIFOCache(BaseCaching):
             self.cache_data.pop(self.last_item)
             print('DISCARD:', self.last_item)
         if key:
-           self.last_item = key
+            self.last_item = key
 
     def get(self, key):
         """
