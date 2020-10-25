@@ -21,7 +21,7 @@ class FIFOCache(BaseCaching):
     def put(self, key, item):
         """
         Must assign to the dictionary self.cache_data
-        the item value for the key key.
+        the item value for the key.
         """
         if key or item:
             self.cache_data[key] = item
@@ -29,7 +29,7 @@ class FIFOCache(BaseCaching):
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
             pop_off = sorted(self.cache_data)[0]
             self.cache_data.pop(pop_off)
-            print('DISCARD:', pop_off)
+            print('DISCARD: {}'.format(pop_off))
 
     def get(self, key):
         """
