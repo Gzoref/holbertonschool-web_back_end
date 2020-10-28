@@ -34,9 +34,9 @@ class Server:
             raise AssertionError
         if page <= 0 or page_size <= 0:
             raise AssertionError
-        pagination_indexes = index_range(page, page_size)
-        data_set = self.dataset()
-        return data_set[pagination_indexes[0]: pagination_indexes[1]]
+        pagination_indexes = index_range(page=page, page_size=page_size)
+        self.dataset()
+        return self.__dataset[pagination_indexes[0]: pagination_indexes[1]]
 
 
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
