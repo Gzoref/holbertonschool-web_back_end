@@ -30,6 +30,9 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
+        '''
+        Return list of baby names or assert error
+        '''
         if not isinstance(page, int) or not isinstance(page_size, int):
             raise AssertionError
         if page <= 0 or page_size <= 0:
