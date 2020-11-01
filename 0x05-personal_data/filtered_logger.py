@@ -48,8 +48,8 @@ def filter_datum(fields: List[str],
         message = sub(pattern, item + "=" + redaction + separator, message)
     return message
 
-    def get_logger() -> logging.Logger:
-        '''
-        Returns a Logger object
-        '''
-        return logging.Logger
+def get_logger() -> logging.Logger:
+    '''
+    Returns a Logger object
+    '''
+    return logging.Logger
