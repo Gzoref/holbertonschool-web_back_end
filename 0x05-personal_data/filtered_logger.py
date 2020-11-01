@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Filter personal information with Regex
+Filter personal information using a Regex, Environmental variables, etc
 """
 
 import re
@@ -68,7 +68,9 @@ def filter_datum(fields: List[str],
 
 def get_logger() -> logging.Logger:
     '''
-    Returns a Logger object
+    Returns a Logger object with a
+    StreamHandler with RedactingFormatter
+    as formatter
     '''
     logger = logging.getLogger('user_data')
     logger.setLevel(logging.INFO)
