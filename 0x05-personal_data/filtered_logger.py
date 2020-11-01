@@ -35,7 +35,7 @@ class RedactingFormatter(logging.Formatter):
             self.SEPARATOR)
 
 
-PII_FIELDS = ('password', 'email', 'ssn', 'email', 'phone')
+PII_FIELDS = ('name', 'email', 'password', 'ssn', 'phone')
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
