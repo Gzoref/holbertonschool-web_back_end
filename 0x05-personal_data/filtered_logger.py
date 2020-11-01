@@ -3,7 +3,7 @@
 Filter personal information with Regex
 """
 
-from re import sub
+import re
 from typing import List
 import logging
 
@@ -45,7 +45,7 @@ def filter_datum(fields: List[str],
     '''
     for item in fields:
         pattern = item + "=.+?(?=abc)*\\" + ";"
-        message = sub(pattern, item + "=" + redaction + separator, message)
+        message = re.sub(pattern, item + "=" + redaction + separator, message)
     return message
 
 
