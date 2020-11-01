@@ -42,15 +42,13 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     '''
     Connect to mysql server with environmental vars
     '''
-    user = os.environ.get('PERSONAL_DATA_DB_USERNAME', None),
-    db_host = os.environ.get('PERSONAL_DATA_DB_HOST', None),
-    db_name = os.environ.get('PERSONAL_DATA_DB_NAME', None),
-    password = os.environ.get('PERSONAL_DATA_DB_PASSWORD', None)
-
-    return mysql.connector.connect(user=user,
-                                   password=password,
-                                   host=db_host,
-                                   database=db_name)
+    db_connect = mysql.connector.connect(
+        user = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
+        password = os.getenv('PERSONAL_DATA_DB_PASSWORD',''),
+        host = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
+        database = os.getenv('PERSONAL_DATA_DB_NAME')
+    )
+    return db_connect
 
 
 def filter_datum(fields: List[str],
@@ -85,3 +83,13 @@ def get_logger() -> logging.Logger:
     logger.addHandler(target_handler)
 
     return logger
+
+def main() -> None:
+    '''
+    Obtain a database connection using get_db
+    and retrieve all rows in the users table and display each row
+    '''
+    pass
+
+if __name__ == "__main__":
+    main()
