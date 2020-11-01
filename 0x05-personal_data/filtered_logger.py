@@ -6,6 +6,8 @@ Filter personal information with Regex
 import re
 from typing import List
 import logging
+import mysql.connector
+import os
 
 
 class RedactingFormatter(logging.Formatter):
@@ -34,6 +36,21 @@ class RedactingFormatter(logging.Formatter):
 
 
 PII_FIELDS = ('password', 'email', 'ssn', 'email', 'phone')
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    '''
+    Connect to mysql server with environmental vars
+    '''
+    user = os.environ.get('PERSONAL_DATA_DB_USERNAME', None),
+    db_host = os.environ.get('PERSONAL_DATA_DB_HOST', None),
+    db_name = os.environ.get('PERSONAL_DATA_DB_NAME', None),
+    password = os.environ.get('PERSONAL_DATA_DB_PASSWORD', None)
+
+    return mysql.connector.connect(user=user,
+                                   password=password,
+                                   host=db_host,
+                                   database=db_name)
 
 
 def filter_datum(fields: List[str],
