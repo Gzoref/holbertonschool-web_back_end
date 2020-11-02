@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Filter personal information using a Regex, Environmental variables, etc
+Filter personal information using a Regex, Environmental variables, etc.
 """
 
 import re
@@ -11,8 +11,9 @@ import os
 
 
 class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class
-        """
+    """
+    Redacting Formatter class
+    """
 
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
@@ -39,9 +40,9 @@ PII_FIELDS = ('name', 'email', 'password', 'ssn', 'phone')
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
-    '''
+    """
     Connect to mysql server with environmental vars
-    '''
+    """
     db_connect = mysql.connector.connect(
         user=os.getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
         password=os.getenv('PERSONAL_DATA_DB_PASSWORD', ''),
@@ -55,9 +56,9 @@ def filter_datum(fields: List[str],
                  redaction: str,
                  message: str,
                  separator: str) -> str:
-    '''
+    """
     Returns the log message obfuscated with Regex
-    '''
+    """
     for item in fields:
         pattern = item + "=.+?(?=abc)*\\" + ";"
         message = re.sub(pattern, item + "=" + redaction + separator, message)
@@ -86,11 +87,28 @@ def get_logger() -> logging.Logger:
 
 
 def main() -> None:
-    '''
+    """
     Obtain a database connection using get_db
-    and retrieve all rows in the users table and display each row
-    '''
-    pass
+    and retrieve all rows in the users table and display each row w/ format:
+
+    [HOLBERTON] user_data INFO 2019-11-19 18:37:59,596:
+    name=***; email=***; phone=***; ssn=***; password=***;
+    ip=60ed:c396:2ff:244:bbd0:9208:26f2:93ea; last_login=2019-11-14 06:14:24
+    user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64)
+    AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36;
+    """
+    db = get_db()
+    cur = db.cursor()
+
+    query = ('SELECT * FROM users;')
+    cur.execute(query)
+    fetch_data = cur.fetchall()
+
+    for row in fetch_data:
+        print(row)
+
+    cur.close()
+    db.close()
 
 
 if __name__ == "__main__":
