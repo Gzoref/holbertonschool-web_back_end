@@ -60,8 +60,8 @@ def filter_datum(fields: List[str],
     Returns the log message obfuscated with Regex
     """
     for item in fields:
-        pattern = item + "=.+?(?=abc)*\\" + ";"
-        message = re.sub(pattern, item + "=" + redaction + separator, message)
+        message = re.sub(item + '=.*?' + separator, item + '=' +
+                         redaction + separator, message)
     return message
 
 
@@ -82,7 +82,6 @@ def get_logger() -> logging.Logger:
     target_handler.setFormatter(formatter)
 
     logger.addHandler(target_handler)
-
     return logger
 
 
