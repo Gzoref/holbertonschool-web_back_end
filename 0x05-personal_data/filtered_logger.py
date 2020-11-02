@@ -66,11 +66,11 @@ def filter_datum(fields: List[str],
 
 
 def get_logger() -> logging.Logger:
-    '''
+    """
     Returns a Logger object with a
     StreamHandler with RedactingFormatter
     as formatter
-    '''
+    """
     logger = logging.getLogger('user_data')
     logger.setLevel(logging.INFO)
     logger.propagate = False
@@ -103,8 +103,14 @@ def main() -> None:
     cur.execute(query)
     fetch_data = cur.fetchall()
 
+    logger = get_logger()
+
     for row in fetch_data:
-        print(row)
+        fields = 'name={}; email={}; phone={}; ssn={}; password={}; ip={}; '\
+            'last_login={}; user_agent={};'
+        fields = fields.format(row[0], row[1], row[2], row[3],
+                               row[4], row[5], row[6], row[7])
+        logger.info(fields)
 
     cur.close()
     db.close()
