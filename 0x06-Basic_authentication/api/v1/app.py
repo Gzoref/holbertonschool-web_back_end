@@ -2,7 +2,7 @@
 """
 Route module for the API
 """
-from api.v1.auth.auth import Auth
+from api.v1.views.index import forbidden_error
 from os import getenv
 
 from werkzeug.exceptions import Unauthorized
@@ -41,7 +41,7 @@ def unauthorized(error) -> str:
 
 
 @app.errorhandler(403)
-def unauthorized(error) -> str:
+def forbidden(error) -> str:
     """ Request Forbidden handler
     """
     return jsonify({"error": "Forbidden"}), 403
@@ -62,9 +62,6 @@ def before_request() -> str:
                 abort(401)
             if auth.current_user(request) is None:
                 abort(403)
-
-
-app.before_request(before_request)
 
 
 if __name__ == "__main__":
