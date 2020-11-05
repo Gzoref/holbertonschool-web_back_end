@@ -2,7 +2,7 @@
 """
 Route module for the API
 """
-from api.v1.views.index import forbidden_error
+from api.v1.views.index import forbidden
 from os import getenv
 
 from werkzeug.exceptions import Unauthorized
@@ -34,15 +34,15 @@ def not_found(error) -> str:
 
 
 @app.errorhandler(401)
-def unauthorized(error) -> str:
-    """ Request unauthorized handler
+def unauthorized_error(error) -> str:
+    """ Unauthorized handler
     """
     return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.errorhandler(403)
-def forbidden(error) -> str:
-    """ Request Forbidden handler
+def forbidden_error(error) -> str:
+    """ Forbidden handler
     """
     return jsonify({"error": "Forbidden"}), 403
 
