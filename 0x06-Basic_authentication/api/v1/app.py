@@ -48,7 +48,7 @@ def unauthorized(error) -> str:
 
 
 @app.before_request
-def before_request() -> None:
+def before_request() -> str:
     """ Filter each request
     """
     request_path_list = [
