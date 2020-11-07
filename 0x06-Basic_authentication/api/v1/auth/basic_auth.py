@@ -4,7 +4,7 @@
 Authenticates user information
 """
 
-from typing import TypeVar
+from typing import TypeVar, Tuple
 from base64 import b64decode, decode
 from api.v1.auth.auth import Auth
 from models.user import User
@@ -17,8 +17,7 @@ class BasicAuth(Auth):
     """
 
     def extract_base64_authorization_header(self, auth_header: str) -> str:
-        """Returns the decoded value of a Base64
-           string base64_authorization_header
+        """Returns the decoded value of a Base64 string
         """
         if auth_header is None or not isinstance(auth_header, str):
             return None
@@ -27,8 +26,7 @@ class BasicAuth(Auth):
         return auth_header[6:]
 
     def decode_base64_authorization_header(self, b64_auth_header: str) -> str:
-        """ Returns the Base64 part of the Authorization
-            header for a Basic Authentification
+        """ Returns the Base64 part of the Authorization header
         """
         if b64_auth_header is None or not isinstance(b64_auth_header, str):
             return None
@@ -47,7 +45,7 @@ class BasicAuth(Auth):
             decoded_b64_auth_header, str)\
                 or ':' not in decoded_b64_auth_header:
             return (None, None)
-        return decoded_b64_auth_header.split(':')
+        return decoded_b64_auth_header.split(':', 1)
 
     def user_object_from_credentials(
             self,
