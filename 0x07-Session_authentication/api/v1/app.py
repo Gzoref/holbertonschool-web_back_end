@@ -6,6 +6,7 @@ from os import getenv
 
 from werkzeug.exceptions import Unauthorized
 from api.v1.views import app_views
+from api.v1.auth import auth
 from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
 import os
@@ -61,6 +62,7 @@ def before_request() -> str:
                 abort(401)
             if auth.current_user(request) is None:
                 abort(403)
+    request.current_user = auth.current_user(request)
 
 
 if __name__ == "__main__":
