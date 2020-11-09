@@ -6,6 +6,7 @@ Template for authentication system
 
 from flask import request
 from typing import List, TypeVar
+from os import getenv
 
 
 class Auth():
@@ -46,3 +47,11 @@ class Auth():
         """ Flask request object
         """
         return None
+
+    def session_cookie(self, request=None):
+        """ Returns a cookie value from a request
+        """
+        if request is None:
+            return None
+        if getenv('SESSION_NAME') == '_my_session_id':
+            return request.cookies.get('_my_session_id')
