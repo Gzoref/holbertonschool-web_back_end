@@ -48,7 +48,10 @@ def session_login() -> str:
     return user_dict
 
 
-@app_views.route('/auth_session/logout', methods=['DELETE'], strict_slashes=False)
+@app_views.route(
+    '/auth_session/logout',
+    methods=['DELETE'],
+    strict_slashes=False)
 def session_logout() -> str:
     """ DELETE /api/v1/auth/session/logout
     Return:
