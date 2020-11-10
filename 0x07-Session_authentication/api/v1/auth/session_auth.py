@@ -3,6 +3,7 @@
 Session authentication mechanism
 """
 
+from typing import Dict
 from flask.globals import session
 from api.v1.auth.auth import Auth
 from models.user import User
@@ -14,7 +15,7 @@ class SessionAuth(Auth):
         inherites from Auth
     """
 
-    user_id_by_session_id = {}
+    user_id_by_session_id: Dict[str, str] = {}
 
     def create_session(self, user_id: str = None) -> str:
         """ Generates a session ID
@@ -40,7 +41,7 @@ class SessionAuth(Auth):
         user_id = User.get(session_user_id)
         return user_id
 
-    def destroy_session(self, request=None) -> bool:
+    def destroy_session(self, request=None):
         """ Deletes the user session/logout
         """
         cookie_data = self.session_cookie(request)
