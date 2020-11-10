@@ -3,6 +3,7 @@
 Session authentication mechanism
 """
 
+from flask.globals import session
 from api.v1.auth.auth import Auth
 from models.user import User
 import uuid
@@ -38,3 +39,16 @@ class SessionAuth(Auth):
         session_user_id = self.user_id_for_session_id(cookie)
         user_id = User.get(session_user_id)
         return user_id
+
+    def destroy_session(self, request=None) -> bool:
+        """ Deletes the user session/logout
+        """
+        cookie_data = self.session_cookie(request)
+        if cookie_data is None:
+            return False
+
+        if not self.user_id_for_session_id(cookie_data):
+            return False
+
+        del self.user_id_by_session_id[cookie_data]
+        return True
