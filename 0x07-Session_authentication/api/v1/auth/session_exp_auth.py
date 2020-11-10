@@ -17,23 +17,23 @@ class SessionExpAuth(SessionAuth):
     """
     Session expiration authentification methods
     """
-
     def __init__(self):
         try:
             self.session_duration = int(getenv('SESSION_DURATION'), 0)
         except ValueError:
             self.session_duration = 0
+        
 
     def create_session(self, user_id=None):
         """  Creates a session ID
         """
-        sess = super().create_session(user_id)
-        if sess is None:
+        session_id = super().create_session(user_id)
+        if session_id is None:
             return None
-        session_dictionary = {"user_id": user_id, "created_at": datetime.now()}
-        SessionAuth.user_id_by_session_id[sess] = session_dictionary
-        return sess
-
+        session_dictionary = {'user_id': user_id, 'created_at': datetime.now()}
+        self.user_id_for_session_id[session_id] = s
+        return session_id
+    
     def user_id_for_session_id(self, session_id=None):
         """ Returns a user ID for a give session ID
         """
