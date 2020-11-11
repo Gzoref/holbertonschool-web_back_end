@@ -3,12 +3,7 @@
 """
 Expiration date to session ID
 """
-
-from api.v1.auth.auth import Auth
-import sys
-from flask import request
-from typing import List, TypeVar
-from os import environ, getenv
+from os import getenv
 from datetime import datetime, timedelta, timedelta
 from api.v1.auth.session_auth import SessionAuth
 

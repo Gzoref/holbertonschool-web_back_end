@@ -2,10 +2,6 @@
 """
 Session databse class
 """
-
-from flask import request
-from typing import List
-from os import environ, getenv
 from datetime import datetime, timedelta, timedelta
 from api.v1.auth.session_exp_auth import SessionExpAuth
 from models.user_session import UserSession
@@ -57,7 +53,7 @@ class SessionDBAuth (SessionExpAuth):
 
         if not user_session:
             return False
-
+        
         user_session = user_session[0]
 
         try:
