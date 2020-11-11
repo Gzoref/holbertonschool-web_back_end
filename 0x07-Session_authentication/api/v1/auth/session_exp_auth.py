@@ -19,6 +19,8 @@ class SessionExpAuth(SessionAuth):
     """
 
     def __init__(self):
+        """ Initialize class
+        """
         try:
             self.session_duration = int(getenv('SESSION_DURATION'), 0)
         except ValueError:
@@ -30,9 +32,9 @@ class SessionExpAuth(SessionAuth):
         session_id = super().create_session(user_id)
         if session_id is None:
             return None
-        
+
         session_dictionary = {'user_id': user_id, 'created_at': datetime.now()}
-        
+
         SessionAuth.user_id_by_session_id[session_id] = session_dictionary
         return session_id
 
