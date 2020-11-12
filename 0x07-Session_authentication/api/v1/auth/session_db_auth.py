@@ -26,7 +26,11 @@ class SessionDBAuth (SessionExpAuth):
         """ Returns the User ID by requesting UserSession
             in the database based on session_id
         """
+        if session_id is None:
+            return None
+
         is_valid_user = UserSession.search({'session_id': session_id})
+
         if not is_valid_user:
             return None
 
@@ -53,7 +57,7 @@ class SessionDBAuth (SessionExpAuth):
 
         if not user_session:
             return False
-        
+
         user_session = user_session[0]
 
         try:
