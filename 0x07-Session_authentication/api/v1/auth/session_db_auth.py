@@ -30,7 +30,7 @@ class SessionDBAuth (SessionExpAuth):
             return None
 
         is_valid_user = UserSession.search({'session_id': session_id})
-
+        UserSession.load_from_file()
         if not is_valid_user:
             return None
 
