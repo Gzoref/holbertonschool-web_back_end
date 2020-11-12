@@ -31,7 +31,7 @@ class SessionDBAuth (SessionExpAuth):
 
         is_valid_user = UserSession.search({'session_id': session_id})
 
-        if not is_valid_user or session_id not in is_valid_user:
+        if not is_valid_user:
             return None
 
         is_valid_user = is_valid_user[0]
