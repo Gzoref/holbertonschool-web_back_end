@@ -1,8 +1,8 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
 
-"""
-User class that inherits from Base class
+""" User class that inherits from Base class
+    Creates databse tables
 """
 
 Base = declarative_base()

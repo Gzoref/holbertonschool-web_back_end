@@ -5,15 +5,13 @@ from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
 from user import Base, User
 
-"""
-Databse class
+""" Database class to save and update databse
 """
 
 class DB:
 
     def __init__(self):
-        """
-        Initializes class attributes
+        """ Initializes class attributes
         """
         self._engine = create_engine("sqlite:///a.db", echo=False)
         Base.metadata.drop_all(self._engine)
@@ -22,8 +20,7 @@ class DB:
 
     @property
     def _session(self):
-        """
-        Private method that returns a session
+        """ Private method that returns a session
         """
         if self.__session is None:
             DBSession = sessionmaker(bind=self._engine)
@@ -40,9 +37,8 @@ class DB:
         return user
 
     def find_user_by(self, **kwargs) -> User:
-        """
-        Returns the first row found in users table
-        as filtered by the method's input argument
+        """ Returns the first row found in users table
+            as filtered by the method's input argument
         """
         user_keys = [
             'id',
@@ -60,10 +56,9 @@ class DB:
         return result
 
     def update_user(self, user_id: int, **kwargs) -> None:
-        """
-        Uses find_user_by() to locate the user to update,
-        then update the user's attributes as passed in the
-        method's arguments and commits changes to the database.
+        """ Uses find_user_by() to locate the user to update,
+            then update the user's attributes as passed in the
+            method's arguments and commits changes to the database
         """
         user_keys = [
             'id',
