@@ -5,6 +5,9 @@ from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
 from user import Base, User
 
+"""
+Databse class
+"""
 
 class DB:
 
