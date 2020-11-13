@@ -9,6 +9,9 @@ from user import Base, User
 class DB:
 
     def __init__(self):
+        """
+        Initializes class attributes
+        """
         self._engine = create_engine("sqlite:///a.db", echo=False)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
@@ -16,6 +19,9 @@ class DB:
 
     @property
     def _session(self):
+        """
+        Private method that returns a session
+        """
         if self.__session is None:
             DBSession = sessionmaker(bind=self._engine)
             self.__session = DBSession()
@@ -49,3 +55,23 @@ class DB:
         if result is None:
             raise NoResultFound
         return result
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """
+        Uses find_user_by() to locate the user to update,
+        then update the user's attributes as passed in the
+        method's arguments and commits changes to the database.
+        """
+        user_keys = [
+            'id',
+            'email',
+            'hashed_password',
+            'session_id',
+            'reset_token']
+
+        user_to_update = self.find_user_by(id=user_id)
+        for key, value in kwargs.items():
+            if key not in user_keys:
+                raise ValueError
+            setattr(user_to_update, key, value)
+        self._session.commit()
