@@ -6,6 +6,7 @@ from sqlalchemy.exc import InvalidRequestError
 from db import DB
 from user import User
 import bcrypt
+import uuid
 
 """ Auth class to validate user attributes
 """
@@ -15,6 +16,12 @@ def _hash_password(password: str) -> str:
     """ Takes in a password and returns a salted hash.
     """
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
+
+def _generate_uuid() -> str:
+    """ Returns a string representation of a new UUID
+    """
+    return str(uuid.uuid4())
 
 
 class Auth:
