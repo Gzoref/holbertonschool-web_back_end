@@ -3,7 +3,7 @@
 """Route module for the API
 """
 
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, redirect
 from flask.helpers import make_response
 from auth import Auth
 from user import User
@@ -45,10 +45,10 @@ def register_users():
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
 def login():
     """ POST /sessions
-        - email
-        - password
+            - email
+            - password
         Return:
-        Data from "email" and "password" fields
+            Data from "email" and "password" fields
     """
     user_request = request.form
 
@@ -61,6 +61,21 @@ def login():
         jsonify({"email": user_email, "message": "logged in"}))
     response.set_cookie('session_id', AUTH.create_session(user_email))
     return response
+
+
+@app.route('/sessions', methods=['DELETE'], strict_slashes=False)
+def logout():
+    """ DELETE /sessions
+            - session_id
+        Find user with requested session ID. If user exists,
+        destroy session and redirect user to GET /
+    """
+    user_cookie = request.cookies.get("session_id")
+    user = AUTH.get_user_from_session_id(user_cookie)
+    if not user:
+        abort(403)
+    AUTH.destroy_session(user)
+    return redirect('/')
 
 
 if __name__ == "__main__":
