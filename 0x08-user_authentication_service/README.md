@@ -91,6 +91,10 @@ What you should learn from this project:
 ### [19. Update password end-point](./app.py)
 * In this task you will implement the update_password function in the app module to respond to the PUT /reset_password route.
 
+
+### [20. End-to-end integration test](./main.py)
+* Start your app. Open a new terminal window.
+
 ---
 
 ## Author
