@@ -1,3 +1,6 @@
+""" Auth class to validate user attributes
+"""
+
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -7,9 +10,6 @@ from db import DB
 from user import User
 import bcrypt
 import uuid
-
-""" Auth class to validate user attributes
-"""
 
 
 def _hash_password(password: str) -> str:
@@ -97,9 +97,9 @@ class Auth:
             return updated_token
         except NoResultFound:
             raise ValueError
-    
+
     def update_password(self, reset_token: str, password: str) -> None:
-        """ Use the reset_token to find the corresponding user. 
+        """ Use the reset_token to find the corresponding user.
             If it does not exist, raise a ValueError exception.
         """
         try:
@@ -108,5 +108,6 @@ class Auth:
             raise ValueError
 
         hashed_pwd = _hash_password(password)
-        updated_user = self._db.update_user(user.id, hashed_passwrd=hashed_pwd, reset_token=None)
+        updated_user = self._db.update_user(
+            user.id, hashed_passwrd=hashed_pwd, reset_token=None)
         return updated_user

@@ -9,7 +9,6 @@ from flask.helpers import make_response
 from auth import Auth
 from user import User
 
-
 AUTH = Auth()
 
 app = Flask(__name__)
@@ -104,7 +103,7 @@ def get_reset_password_token_route():
     user_request = request.form
     user_email = user_request.get('email', '')
     is_registered = AUTH.create_session(user_email)
-    
+
     if not is_registered:
         abort(403)
 
@@ -125,7 +124,7 @@ def update_password():
     user_request = request.form
     user_email = user_request.get('email', '')
     user_password = user_request['hashed_password']
-    
+
     try:
         reset_token = AUTH.get_reset_password_token(user_email)
     except Exception:
@@ -133,7 +132,7 @@ def update_password():
 
     updated_password = AUTH.update_password(reset_token, user_password)
 
-    return jsonify({"email": user_email, "message":  updated_password})
+    return jsonify({"email": user_email, "message": updated_password})
 
 
 if __name__ == "__main__":

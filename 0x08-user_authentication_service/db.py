@@ -1,12 +1,12 @@
+""" Database class to save and update databse
+"""
+
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
 from user import Base, User
-
-""" Database class to save and update databse
-"""
 
 
 class DB:
