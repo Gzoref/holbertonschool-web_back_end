@@ -8,6 +8,7 @@ from user import Base, User
 """ Database class to save and update databse
 """
 
+
 class DB:
 
     def __init__(self):
@@ -29,7 +30,7 @@ class DB:
 
     def add_user(self, email: str, hashed_password: str) -> User:
         """
-        Save the user to the database
+        Save new the user to the database
         """
         user = User(email=email, hashed_password=hashed_password)
         self._session.add(user)

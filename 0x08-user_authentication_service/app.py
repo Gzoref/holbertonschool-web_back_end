@@ -3,6 +3,7 @@
 """Route module for the API
 """
 
+from db import DB
 from flask import Flask, jsonify, request, abort, redirect
 from flask.helpers import make_response
 from auth import Auth
@@ -90,6 +91,49 @@ def profile() -> str:
     if not user:
         abort(403)
     return jsonify({"email": user}), 200
+
+
+@app.route('/reset_password', methods=['POST'], strict_slashes=False)
+def get_reset_password_token_route():
+    """ POST /reset_password
+            - email
+        Return:
+            - Generate a Token
+            - 403 if email not registered
+    """
+    user_request = request.form
+    user_email = user_request.get('email', '')
+    is_registered = AUTH.create_session(user_email)
+    
+    if not is_registered:
+        abort(403)
+
+    token = AUTH.get_reset_password_token(user_email)
+    return jsonify({"email": user_email, "reset_token": token})
+
+
+@app.route('/reset_password', methods=['PUT'], strict_slashes=False)
+def update_password():
+    """ PUT /reset_password
+            - email
+            - reset_token
+            - new_password
+        Return:
+            - Update the password
+            - 403 if token is invalid
+    """
+    user_request = request.form
+    user_email = user_request.get('email', '')
+    user_password = user_request['hashed_password']
+    
+    try:
+        reset_token = AUTH.get_reset_password_token(user_email)
+    except Exception:
+        abort(403)
+
+    updated_password = AUTH.update_password(reset_token, user_password)
+
+    return jsonify({"email": user_email, "message":  updated_password})
 
 
 if __name__ == "__main__":
