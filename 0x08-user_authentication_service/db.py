@@ -58,11 +58,11 @@ class DB:
         return result
 
     def update_user(self, user_id: int, **kwargs) -> None:
-        """ Update user attribute and 
+        """ Update user attribute and
             commits changes to the database
         """
         user_to_update = self.find_user_by(id=user_id)
-        
+
         user_keys = [
             'id',
             'email',
