@@ -93,7 +93,7 @@ def profile() -> str:
 
 
 @app.route('/reset_password', methods=['POST'], strict_slashes=False)
-def get_reset_password_token_route():
+def get_reset_password_token_route() -> str:
     """ POST /reset_password
             - email
         Return:
@@ -112,7 +112,7 @@ def get_reset_password_token_route():
 
 
 @app.route('/reset_password', methods=['PUT'], strict_slashes=False)
-def update_password():
+def update_password() -> str:
     """ PUT /reset_password
             - email
             - reset_token
