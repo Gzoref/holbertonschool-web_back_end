@@ -58,10 +58,11 @@ class DB:
         return result
 
     def update_user(self, user_id: int, **kwargs) -> None:
-        """ Uses find_user_by() to locate the user to update,
-            then update the user's attributes as passed in the
-            method's arguments and commits changes to the database
+        """ Update user attribute and 
+            commits changes to the database
         """
+        user_to_update = self.find_user_by(id=user_id)
+        
         user_keys = [
             'id',
             'email',
@@ -69,10 +70,9 @@ class DB:
             'session_id',
             'reset_token']
 
-        user_to_update = self.find_user_by(id=user_id)
-
         for key, value in kwargs.items():
             if key not in user_keys:
+                setattr(user_to_update, key, value)
+            else:
                 raise ValueError
-            setattr(user_to_update, key, value)
         self._session.commit()
