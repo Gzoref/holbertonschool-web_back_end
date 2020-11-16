@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """ User class that inherits from Base class
     Creates databse tables
 """
