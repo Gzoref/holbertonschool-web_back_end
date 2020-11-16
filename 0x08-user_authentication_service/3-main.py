@@ -13,9 +13,11 @@ my_db = DB()
 
 email = 'test@test.com'
 hashed_password = "hashedPwd"
+wrong_attr  = "garbage"
 
 user = my_db.add_user(email, hashed_password)
 print(user.id)
+
 
 try:
     my_db.update_user(user.id, hashed_password='NewPwd')
