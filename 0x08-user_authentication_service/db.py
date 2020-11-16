@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """ Database class to save and update databse
 """
 

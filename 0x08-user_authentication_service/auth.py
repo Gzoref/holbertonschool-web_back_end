@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """ Auth class to validate user attributes
 """
 
