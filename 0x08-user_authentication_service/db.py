@@ -69,10 +69,10 @@ class DB:
             'session_id',
             'reset_token']
 
-        for item in kwargs.keys():
-            if item not in user_keys:
-                raise ValueError
         user_to_update = self.find_user_by(id=user_id)
+
         for key, value in kwargs.items():
+            if key not in user_keys:
+                raise ValueError
             setattr(user_to_update, key, value)
         self._session.commit()
