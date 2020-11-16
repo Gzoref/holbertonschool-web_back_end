@@ -71,7 +71,7 @@ class DB:
             'reset_token']
 
         for key, value in kwargs.items():
-            if key not in user_keys:
+            if key in user_keys:
                 setattr(user_to_update, key, value)
             else:
                 raise ValueError
