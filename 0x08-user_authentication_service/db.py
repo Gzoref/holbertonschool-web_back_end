@@ -76,4 +76,3 @@ class DB:
         for key, value in kwargs.items():
             setattr(user_to_update, key, value)
         self._session.commit()
-        return None
