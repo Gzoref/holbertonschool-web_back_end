@@ -12,6 +12,8 @@ from user import Base, User
 
 
 class DB:
+    """ Database class
+    """
 
     def __init__(self):
         """ Initializes class attributes
