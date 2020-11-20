@@ -70,11 +70,13 @@ def logout():
         Find user with requested session ID. If user exists,
         destroy session and redirect user to GET /
     """
-    user_cookie = request.cookies.get("session_id")
-    user = AUTH.get_user_from_session_id(user_cookie)
-    if not user:
+    user_cookie = request.cookies.get("session_id", None)
+    if user_cookie is None:
         abort(403)
-    AUTH.destroy_session(user)
+    user = AUTH.get_user_from_session_id(user_cookie)
+    if user is None:
+        abort(403)
+    AUTH.destroy_session(user.id)
     return redirect('/')
 
 
@@ -85,7 +87,7 @@ def profile() -> str:
         - Use session_id to find the user.
         - 403 if session ID is invalid
     """
-    user_cookie = request.cookies.get("session_id")
+    user_cookie = request.cookies.get("session_id", None)
     user = AUTH.get_user_from_session_id(user_cookie)
     if not user:
         abort(403)
