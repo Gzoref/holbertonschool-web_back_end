@@ -11,6 +11,7 @@ from unittest.mock import Mock, patch, PropertyMock
 from utils import get_json
 from client import GithubOrgClient
 import client
+from fixtures import TEST_PAYLOAD
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -62,3 +63,24 @@ class TestGithubOrgClient(unittest.TestCase):
         self.assertEqual(
             GithubOrgClient.has_license(
                 repo, license_key), expected)
+
+
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """ Test class for GithubOrgClient.public_repos
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        """ Setup tests for class GithubOrgClient
+        """
+        pass
+
+    def tearDownClass():
+        """ Teardown tests for GithubOrgClient
+        """
+        pass
+
+    def test_public_repos_with_license():
+        """ Test GithubOrgClient.public_repos method
+        """
+        pass
