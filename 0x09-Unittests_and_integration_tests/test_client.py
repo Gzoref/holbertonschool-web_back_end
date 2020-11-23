@@ -75,12 +75,22 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         """
         pass
 
-    def tearDownClass():
+    def tearDownClass(self):
         """ Teardown tests for GithubOrgClient
         """
         pass
 
-    def test_public_repos_with_license():
+    def test_public_repos_with_license(self):
         """ Test GithubOrgClient.public_repos method
+        """
+        pass
+
+    def test_public_repos(self):
+        """ Test GithubOrgClient.public_repos method
+        """
+        pass
+
+    def test_public_repos_with_license(self):
+        """ Test public_repos
         """
         pass
