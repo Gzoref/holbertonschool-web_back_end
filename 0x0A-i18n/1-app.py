@@ -8,8 +8,14 @@ from flask_babel import Babel
 
 app = Flask(__name__)
 babel = Babel(app)
-app.config['BABEL_DEFAULT_LOCALE'] = 'en'
-app.config['BABEL_DEFAULT_LOCALE'] = 'UTC'
+
+class Config:
+    """ Available languages class
+    """
+
+    LANGUAGES = ["en", "fr"]
+    BABEL_DEFAULT_LOCALE = 'en'
+    BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
@@ -19,13 +25,6 @@ def welcome() -> str:
         Hello world
     """
     return render_template('1-index.html')
-
-
-class Config:
-    """ Available languages class
-    """
-
-    LANGUAGES = ["en", "fr"]
 
 
 if __name__ == "__main__":
