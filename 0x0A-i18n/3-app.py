@@ -19,16 +19,13 @@ class Config:
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
-app.config.from_object('3-app.Config')
-
-
 @app.route('/', methods=['GET'], strict_slashes=False)
 def welcome() -> str:
     """ GET /
     Return:
         Hello world
     """
-    return render_template('3-index.html')
+    return render_template('4-index.html')
 
 
 @babel.localeselector
@@ -36,6 +33,7 @@ def get_locale():
     """ Determine best match for supported languages
     """
     return request.accept_languages.best_match(app.config['LANGUAGES'])
+
 
 
 if __name__ == "__main__":
