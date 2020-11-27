@@ -31,7 +31,7 @@ def welcome() -> str:
 
 
 @babel.localeselector
-def get_locale():
+def get_locale() -> str:
     """ Determine best match for supported languages
     """
     locale = request.args.get("locale")
