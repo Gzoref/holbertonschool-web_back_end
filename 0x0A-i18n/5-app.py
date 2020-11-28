@@ -56,8 +56,7 @@ def get_user() -> Union[dict, None]:
     user = int(request.args.get('login_as'))
     if user in users:
         return users.get(user)
-    else:
-        return None
+    return None
 
 
 @app.before_request
