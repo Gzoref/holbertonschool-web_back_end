@@ -7,6 +7,7 @@ from typing import Union
 from flask import Flask, render_template, request, g
 from os import getenv
 from flask_babel import Babel
+from pytz import timezone
 
 app = Flask(__name__)
 babel = Babel(app)
@@ -52,7 +53,7 @@ def get_locale() -> str:
 def get_user() -> Union[dict, None]:
     """ Returns a user dictionary or None
     """
-    user =  int(request.args.get('login_as'))
+    user = int(request.args.get('login_as'))
     if user in users:
         return users.get(user)
     return None
@@ -63,6 +64,15 @@ def before_request():
     """ Executed before all other functions
     """
     g.user = get_user()
+
+
+@babel.timezoneselector
+def get_timezone():
+    """ Infer approppriate timezone
+    """
+    user = getattr(g, 'locale', None)
+    if user is not None:
+        return user.timezone
 
 
 if __name__ == "__main__":
