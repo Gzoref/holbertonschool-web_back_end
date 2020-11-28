@@ -11,6 +11,7 @@ from flask_babel import Babel
 app = Flask(__name__)
 babel = Babel(app)
 
+
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
     2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
@@ -52,9 +53,11 @@ def get_locale() -> str:
 def get_user() -> Union[dict, None]:
     """ Returns a user dictionary or None
     """
-    if request.args.get('login_as') in users:
-        return users.get(users)
-    return None
+    user = int(request.args.get('login_as'))
+    if user in users:
+        return users.get(user)
+    else:
+        return None
 
 
 @app.before_request
