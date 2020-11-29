@@ -36,7 +36,7 @@ def welcome() -> str:
     Return:
         Hello world
     """
-    return render_template('7-index.html')
+    return render_template('6-index.html')
 
 
 @babel.localeselector
@@ -52,10 +52,12 @@ def get_locale() -> str:
 def get_user() -> Union[dict, None]:
     """ Returns a user dictionary or None
     """
-    user = int(request.args.get('login_as'))
-    if user in users:
-        return users.get(user)
-    return None
+    if request.args.get('login_as'):
+        user = int(request.args.get('login_as'))
+        if user in users:
+            return users.get(user)
+    else:
+        return None
 
 
 @app.before_request

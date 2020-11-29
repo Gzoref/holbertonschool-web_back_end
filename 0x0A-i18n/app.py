@@ -6,6 +6,8 @@
 from typing import Union
 from flask import Flask, render_template, request, g
 from os import getenv
+
+import pytz
 from flask_babel import Babel
 from pytz import timezone
 
@@ -28,7 +30,7 @@ class Config:
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
-app.config.from_object('8-app.Config')
+app.config.from_object('app.Config')
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
@@ -53,10 +55,12 @@ def get_locale() -> str:
 def get_user() -> Union[dict, None]:
     """ Returns a user dictionary or None
     """
-    user = int(request.args.get('login_as'))
-    if user in users:
-        return users.get(user)
-    return None
+    if request.args.get('login_as'):
+        user = int(request.args.get('login_as'))
+        if user in users:
+            return users.get(user)
+    else:
+        return None
 
 
 @app.before_request
@@ -70,10 +74,12 @@ def before_request():
 def get_timezone():
     """ Infer approppriate timezone
     """
-    user = getattr(g, 'locale', None)
-    if user is not None:
-        return user.timezone
-
+    try:
+        time_zone = request.args.get('timezone')
+        py_tz = pytz.timezone(time_zone)
+    except pytz.exceptions.UnknownTimeZoneError:
+        time_zone = 'UTC'
+    return time_zone
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")

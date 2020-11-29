@@ -53,10 +53,12 @@ def get_locale() -> str:
 def get_user() -> Union[dict, None]:
     """ Returns a user dictionary or None
     """
-    user = int(request.args.get('login_as'))
-    if user in users:
-        return users.get(user)
-    return None
+    if request.args.get('login_as'):
+        user = int(request.args.get('login_as'))
+        if user in users:
+            return users.get(user)
+    else:
+        return None
 
 
 @app.before_request
