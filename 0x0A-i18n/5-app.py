@@ -61,7 +61,6 @@ def get_user() -> Union[dict, None]:
         return None
 
 
-
 @app.before_request
 def before_request():
     """ Executed before all other functions

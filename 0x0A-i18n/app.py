@@ -81,5 +81,6 @@ def get_timezone():
         time_zone = 'UTC'
     return time_zone
 
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
