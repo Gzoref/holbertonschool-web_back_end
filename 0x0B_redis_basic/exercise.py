@@ -6,6 +6,22 @@
 import redis
 from typing import Callable, Optional, Union
 from uuid import uuid4
+from functools import wraps
+
+
+def count_calls(method: Callable) -> Callable:
+    """ Counts how many times methods of Cache class are called
+    """
+    method_name = method.__qualname__
+
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        """ Increment method call number
+        """
+        self._redis.incr(method_name)
+        return method(self, *args, **kwargs)
+
+    return wrapper
 
 
 class Cache:
@@ -18,6 +34,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """ Generates a random uuid
         """
@@ -25,20 +42,21 @@ class Cache:
         self._redis.set(unique_id, data)
         return unique_id
 
-    def get(self, key: str, fn: Optional[Callable]):
+    def get(self, key: str, fn: Optional[Callable]
+            = None) -> Union[str, bytes, int, float]:
         """ Converts data back to desired format
         """
         data = self._redis.get(key)
         if fn:
-            return fn(data)
+            data = fn(data)
         return data
 
     def get_str(self, key: str) -> Union[str, bytes, int, float]:
         """ Converts data back to desired string format
         """
-        return self._redis.get(key, str)
+        return self.get(key, str)
 
     def get_int(self, key: str) -> Union[str, bytes, int, float]:
         """ Converts data back to desired int format
         """
-        return self._redis.get(key, int)
+        return self.get(key, int)
