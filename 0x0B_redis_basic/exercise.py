@@ -9,19 +9,24 @@ from uuid import uuid4
 from functools import wraps
 
 
-def count_calls(method: Callable) -> Callable:
+def count_calls(func: Callable) -> Callable:
     """ Counts how many times methods of Cache class are called
     """
-    method_name = method.__qualname__
+    method_name = func.__qualname__
 
-    @wraps(method)
+    @wraps(func)
     def wrapper(self, *args, **kwargs):
         """ Increment method call number
         """
         self._redis.incr(method_name)
-        return method(self, *args, **kwargs)
+        return func(self, *args, **kwargs)
 
     return wrapper
+
+
+def call_history(method: Callable) -> Callable:
+    """ Stores history of inputs and outputs for a particular function
+    """
 
 
 class Cache:
