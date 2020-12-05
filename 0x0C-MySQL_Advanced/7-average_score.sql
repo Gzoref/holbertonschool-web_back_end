@@ -1,4 +1,4 @@
- -- Creates a stored procedure ComputeAverageScoreForUser that computes AND store the average score for a student 
+-- Creates a stored procedure ComputeAverageScoreForUser that computes AND store the average score for a student 
 
 DELIMITER $$
 CREATE PROCEDURE ComputeAverageScoreForUser(IN user_id INT) BEGIN UPDATE users
