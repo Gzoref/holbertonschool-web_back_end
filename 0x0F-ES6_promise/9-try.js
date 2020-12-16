@@ -1,12 +1,13 @@
 export default function guardrail(mathFunction) {
+  let mathFunc;
   const queue = [];
 
   try {
-    queue.push(mathFunction);
+    mathFunc = mathFunction();
   } catch (error) {
-    queue.push(error.toString());
+    mathFunc = error.toString();
   }
-  queue.push(mathFunction());
+  queue.push(mathFunc);
   queue.push('Guardrail was processed');
 
   return queue;
