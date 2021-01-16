@@ -1,5 +1,5 @@
-const redis = require("redis");
-const client = redis.createClient();
+import { createClient, print } from "redis";
+const client = createClient();
 
 client.on("connect", () => {
   console.log(`Redis client connected to the server`);
@@ -10,8 +10,8 @@ client.on("error", (error) => {
 });
 
 function setNewSchool(schoolName, value) {
-  client.set(schoolName, value, redis.print);
-  client.get(schoolName, redis.print);
+  client.set(schoolName, value, print);
+  client.get(schoolName, print);
 }
 
 function displaySchoolValue(schoolName) {

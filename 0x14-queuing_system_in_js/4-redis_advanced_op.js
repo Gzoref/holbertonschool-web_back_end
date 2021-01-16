@@ -1,6 +1,6 @@
-const redis = require("redis");
-const client = redis.createClient();
-const { promisify } = require("util");
+import { createClient, print } from "redis";
+const client = createClient();
+import { promisify } from "util";
 const hgetall = promisify(client.hgetall).bind(client);
 
 async function hashValue() {
@@ -14,7 +14,7 @@ async function hashValue() {
   };
 
   for (const item in values) {
-    client.hset("HolbertonSchools", item, values[item], redis.print);
+    client.hset("HolbertonSchools", item, values[item], print);
   }
 
   const result = await hgetall("HolbertonSchools");
