@@ -18,3 +18,8 @@ job.on("complete", () => {
 job.on("failed", () => {
   console.log("Notification job failed");
 });
+
+
+job.on("progress", () => {
+  console.log("Notification job failed");
+});
